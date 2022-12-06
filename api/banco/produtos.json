@@ -1,0 +1,37 @@
+{
+    "blusa flamengo": {
+        "preco": 40.5,
+        "quantidade": 9,
+        "linkImagem": ""
+    },
+    "blusa bahia": {
+        "preco": 40.5,
+        "quantidade": 8,
+        "linkImagem": ""
+    },
+    "cal\u00e7a flamengo": {
+        "preco": 40.5,
+        "quantidade": 7,
+        "linkImagem": ""
+    },
+    "cal\u00e7a bahia": {
+        "preco": 40.5,
+        "quantidade": 10,
+        "linkImagem": ""
+    },
+    "bola couro": {
+        "preco": 40.5,
+        "quantidade": 10,
+        "linkImagem": ""
+    },
+    "bola borracha": {
+        "preco": 40.5,
+        "quantidade": 10,
+        "linkImagem": ""
+    },
+    "bola da copa": {
+        "preco": 100.0,
+        "quantidade": 20,
+        "linkImagem": "https://static.netshoes.com.br/produtos/bola-de-futebol-campo-adidas-copa-do-mundo-2022-al-rihla-training/44/3ZP-7525-044/3ZP-7525-044_zoom1.jpg?ts=1648571211&ims=544x"
+    }
+}
