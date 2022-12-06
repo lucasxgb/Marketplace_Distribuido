@@ -1,9 +1,57 @@
-*{
-    margin: 0;
-    padding: 0;
+/*.container{
+    padding: 80 0 0 80;
+    display: grid;
+    grid-template-columns: 300px auto auto auto auto;Determina como as colunas vão se comportar
+    grid-template-rows: 50% 50% ;
+    gap:  5px;Espaçamento para linhas e colunas
+    
 }
 
-body { 
-    min-height: 100vh; 
+.container div {
+    background-color: #e8e8e8;
+    padding: 20px;
+    border: 1px solid #1010103d;
+}
+*/
+
+/*Template Area*/
+
+.container{
+    padding: 80 0 0 80;
+    display: grid;
+    gap:  5px;
+    grid-template-areas: 
+    'cabecalho'
+    'pesquisa'
+    'conteudo'
+    'rodape'
+    
+    ;
+    
 }
 
+.container .div-grid {
+    background-color: #f5f5f5;
+    padding: 20px 80px 0 80px;
+    border: 1px solid #1010103d;
+}
+
+#cabecalho {
+    grid-area: cabecalho;
+}
+
+#pesquisa {
+    grid-area: pesquisa;
+    height: 50px;
+}
+
+#conteudo{
+    grid-area: conteudo;
+    height: 500px;
+}
+
+#rodape{
+    
+    grid-area: rodape;
+    height: 80px;
+}

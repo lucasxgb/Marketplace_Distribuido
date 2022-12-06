@@ -6,7 +6,6 @@
 }
 
 
-
 .cabecalho{
     height: 100px;
     display: flex;
@@ -52,6 +51,8 @@
 .opcoesMenu li img{
     width: 25px;
     height: 25px;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .cabecalho img:hover{
