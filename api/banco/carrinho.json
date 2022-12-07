@@ -1,0 +1,31 @@
+{
+    "silas": {
+        "blusa flamengo": {
+            "preco": 40.5,
+            "quantidade": 2,
+            "linkImagem": ""
+        },
+        "blusa bahia": {
+            "preco": 40.5,
+            "quantidade": 1,
+            "linkImagem": ""
+        },
+        "bola da copa": {
+            "preco": 10.0,
+            "quantidade": 20,
+            "linkImagem": "teste"
+        }
+    },
+    "lucas": {
+        "blusa flamengo": {
+            "preco": 40.5,
+            "quantidade": 1,
+            "linkImagem": ""
+        },
+        "blusa bahia": {
+            "preco": 40.5,
+            "quantidade": 2,
+            "linkImagem": ""
+        }
+    }
+}
