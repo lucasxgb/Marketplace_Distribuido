@@ -23,51 +23,79 @@
             </ul>
         </div>
         <div class="div-grid" id="pesquisa">
-            <input type="text" name="barra-pesquisa" id="bpesquisa" placeholder="O que você deseja? ">
-            <button id="buscar" onclick="changeImage()"> Buscar </button>
+            <form id="form-pesquisa" onsubmit="pesquisarBanco()" method = "GET">
+                <input type="text" name="barra-pesquisa" id="bpesquisa" placeholder="O que você deseja? ">
+                <button id="buscar" type="submit"> Buscar </button>
+            </form>
+            
         </div>
         <div class="div-grid" id="conteudo">
-            <div id="item-1"> <img  id="item-001" src="" alt=""></div>
-            <div class = "item"> <img  id="item-2" src="https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png" alt=""></div>
-            <div class = "item"> <img  id="item-3" src="" alt=""></div>
-            <div class = "item"> <img  id="item-4" src="" alt=""></div>
-            <div class = "item"> <img  id="item-5" src="" alt=""></div>
-            <div class = "item"> <img  id="item-6" src="" alt=""></div>
-            <div class = "item"> <img  id="item-7" src="" alt=""></div>
-            <div class = "item"> <img  id="item-8" src="" alt=""></div>
-            <div class = "item"> <img  id="item-9" src="" alt=""></div>
-            <div id="item-10">  <img  id="item-110" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-11" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-12" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-13" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-14" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-15" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-16" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-17" src="" alt=""></div>
-            <div class = "item" >  <img  id="item-18" src="" alt=""></div>
+            <div class="item-01" id="div1" onclick="enviaDados(this.id)"> <img  id="item-1" src="" alt=""> <p id="nome1"></p></div>
+            <div class = "item" id="div2" onclick="enviaDados(this.id)"> <img  id="item-2" src="" alt=""><p id="nome2"></p></div>
+            <div class = "item" id="div3" onclick="enviaDados(this.id)"> <img  id="item-3" src="" alt=""><p id="nome3"></p></div>
+            <div class = "item" id="div4" onclick="enviaDados(this.id)"> <img  id="item-4" src="" alt=""><p id="nome4"></p></div>
+            <div class = "item" id="div5" onclick="enviaDados(this.id)"> <img  id="item-5" src="" alt=""><p id="nome5"></p></div>
+            <div class = "item" id="div6" onclick="enviaDados(this.id)"> <img  id="item-6" src="" alt=""><p id="nome6"></p></div>
+            <div class = "item" id="div7" onclick="enviaDados(this.id)"> <img  id="item-7" src="" alt=""><p id="nome7"></p></div>
+            <div class = "item" id="div8" onclick="enviaDados(this.id)"> <img  id="item-8" src="" alt=""><p id="nome8"></p></div>
+            <div class = "item" id="div9" onclick="enviaDados(this.id)"> <img  id="item-9" src="" alt=""><p id="nome9"></p></div>
+            <div class="item-110"  id="div10" onclick="enviaDados(this.id)">  <img  id="item-10" src="" alt=""><p id="nome10"></p></div>
+            <div class = "item" id="div11" onclick="enviaDados(this.id)">  <img  id="item-11" src="" alt=""> <p id="nome11"></p> </div>
+            <div class = "item" id="div12" onclick="enviaDados(this.id)">  <img  id="item-12" src="" alt=""> <p id="nome12"></p> </div>
+            <div class = "item" id="div13" onclick="enviaDados(this.id)">  <img  id="item-13" src="" alt=""> <p id="nome13"></p> </div>
+            <div class = "item" id="div14" onclick="enviaDados(this.id)">  <img  id="item-14" src="" alt=""> <p id="nome14"></p> </div>
+            <div class = "item" id="div15" onclick="enviaDados(this.id)">  <img  id="item-15" src="" alt=""> <p id="nome15"></p> </div>
+            <div class = "item" id="div16" onclick="enviaDados(this.id)">  <img  id="item-16" src="" alt=""> <p id="nome16"></p> </div>
+            <div class = "item" id="div17" onclick="enviaDados(this.id)">  <img  id="item-17" src="" alt=""> <p id="nome17"></p> </div>
+            <div class = "item" id="div18" onclick="enviaDados(this.id)">  <img  id="item-18" src="" alt=""> <p id="nome18"></p> </div>
         </div>
     </div>
 </body>
 
-<script>
-    function changeImage() {
-    document.getElementById("item-10").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-22").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-3").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-4").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-5").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-6").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-7").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-8").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-9").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-10").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-11").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-12").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-13").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-14").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-    document.getElementById("item-15").src = "https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png"
-   
 
-}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script >
+    function pesquisarBanco() {
+        event.preventDefault()
+        var nome = document.getElementById('bpesquisa').value;
+        
+        axios.get(`http://127.0.0.1:8000/produtos/${nome}`)
+                    .then(response => {
+                        var data = response.data
+                        var lista_dados = Object.entries(data)
+                        var lista = Object.entries(lista_dados[0][1])
+                        var tamanho = lista.length
+                        for (var i=0; i<tamanho; i++){
+                            var nome = lista[i][0]
+                            
+                            var link = lista [i][1].linkImagem
+                            var index = i+1
+                            var preco = lista[i][1].preco
+                            document.getElementById(`item-${index}`).src = `${link}`
+                            document.getElementById(`item-${index}`).value = `${lista[i]}`
+                            alteraNome(index, nome)
+                            
+                        }
+
+                        
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+        }
+        
+    function alteraNome(index, nome){
+        var texto = document.getElementById(`nome${index}`)
+        texto.innerHTML = " "
+        texto.innerHTML = texto.innerHTML + `${nome.toUpperCase()}`
+    }
+
+    function enviaDados(id) {
+        var info = document.getElementById(`${id}`).value
+        alert(id,info)
+    }
+                        
+
+
 </script>
 </html>

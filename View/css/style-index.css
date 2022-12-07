@@ -28,7 +28,7 @@
 
 #pesquisa #bpesquisa{
     font-family: 'Poppins', sans-serif;
-    background-color: #e8e8e8;
+    background-color: #f5f5f5;
     border: 1px solid #10101042;
     border-radius: 25px 0px 0px 25px;  
     width: 280px;
@@ -57,39 +57,59 @@
 }
 
 #conteudo div{
-    background-color: #e8e8e8;
+    background-color: #ffffff;
     padding: 20px 80px 0 80px;
     border: 1px solid #1010103d;
+    border-radius: 5px;
 }
 
-#item-1, #item-10{
+.item-01, .item-110{
     width: 200px;
 }
 
-#item-1{
+.item-01{
     grid-row-start: 1;
     grid-row-end: 3;
+    width: 200px;
+    height: 428px;
 }
 
-#item-10{
+.item-110{
     grid-row-start: 3;
     grid-row-end: 5;
+    width: 200px;
+    height: 428px;
 }
 
 .item{
+    width: 42px;
     height: 200px;
 }
 
 
-
-.item, #item-1, #item-10 {
+.item, .item-01, .item-110{
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
-.item img, #item-1 img, #item-10 img {
-    max-width: 100%;
+.item p, .item-01 p, .item-110 p{
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    position: absolute;
+    font-size: 14px;
+    bottom: 0;
+}
+
+.item-01 img, .item-110 img {
+    max-width: 150%;
+    margin-bottom: 30px;
+}
+
+.item img{
+    max-width: 350%;
+    margin-bottom: 30px;
 }
 
 
@@ -103,3 +123,15 @@
     background-color: #101010;
 }
 
+#pesquisa #form-pesquisa {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+
+#conteudo div:hover{
+    cursor: pointer;
+    border: 1px solid #101010;
+    
+}
