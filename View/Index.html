@@ -58,44 +58,48 @@
     function pesquisarBanco() {
         event.preventDefault()
         var nome = document.getElementById('bpesquisa').value;
-        let um ="http://127.0.0.1:4000/produtos/"
-        let dois ="http://127.0.0.1:5000/produtos/"
-        let tres = "http://127.0.0.1:8000/produtos/"
-        const requestUm = axios.get(um);
-        const requestDois = axios.get(dois);
-        const requestTres = axios.get(tres);
-        axios.all([requestUm, requestDois,requestTres]).then(axios.spread((...responses) => {
-                const respostaUm = responses[0]
-                const respostaDois = responses[1]
-                const respostaTres = responses[2]
-                var lista_dados = Object.entries(respostaUm)
-                var lista = Object.entries(lista_dados[0][1])
-                var tamanho = lista.length
+        var requisicao
+        var requestUm = axios.get("http://127.0.0.1:4000/produtos/");
+        var requestDois = axios.get("http://127.0.0.1:5000/produtos/");
+        var requestTres = axios.get("http://127.0.0.1:8000/produtos/");
+        if (nome == ""){
+            requisicao = axios.all([requestUm, requestDois, requestTres])
+        }else{
+            requestUm = axios.get(`http://127.0.0.1:4000/produtos/${nome}`);
+            requestDois = axios.get(`http://127.0.0.1:5000/produtos/${nome}`);
+            requestTres = axios.get(`http://127.0.0.1:8000/produtos/${nome}`);
+            requisicao = axios.all([requestUm, requestDois, requestTres])
+        }  
+            requisicao.then(axios.spread((...responses) => {
+                const responseOne = responses[0]
+                const responseTwo = responses[1]
+                const responesThree = responses[2]
+                var tamanho = 3
                 for (var i=0; i<tamanho; i++){
-                    var nome = lista[i][0]
-                    var link = lista [i][1].linkImagem
-                    var index = i+1
-                    var preco = lista[i][1].preco
-                    if (document.getElementById(`item-${index}`).value != null){
-                        while (document.getElementById(`item-${index}`).value != null){
-                            index+=1
-                        }
-                    }else {
+                    var lista_dados = Object.entries(responses[i])
+                    var lista = Object.entries(lista_dados[0][1])
+                    var lista_objetos = Object.entries(lista[0][1])
+                    console.log(lista_objetos)
+                    var tamanhoReq = lista_objetos.length
+                    for (var j=0; j<tamanhoReq; j++){
+                        var nome = lista_objetos[j][0]
+                        var link = lista_objetos [j][1].linkImagem
+                        var index = j+1
+                        var preco = lista_objetos[j][1].preco
+                        console.log(nome)
                         document.getElementById(`item-${index}`).src = `${link}`
-                        document.getElementById(`item-${index}`).value = `${lista[i]}`
+                        document.getElementById(`item-${index}`).value = `${lista_objetos[j].toString()}`
                         document.getElementById(`div${index}`).value = `${nome}`
                         alteraNome(index, nome)
+                        
                     }
-                    
-                    aux = 0;
                 }
 
-                    
                 
             })).catch(errors => {
                 console.log(errors)
-    })
-}
+            })  
+    }
     
     
             
