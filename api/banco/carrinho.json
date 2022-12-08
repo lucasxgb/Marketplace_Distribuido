@@ -14,6 +14,11 @@
             "preco": 10.0,
             "quantidade": 20,
             "linkImagem": "teste"
+        },
+        "teste": {
+            "preco": 0.0,
+            "quantidade": 0,
+            "linkImagem": "string"
         }
     },
     "lucas": {
