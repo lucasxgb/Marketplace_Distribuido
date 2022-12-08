@@ -36,7 +36,7 @@ app.add_middleware(
 
 
 # Ligar o uvicorn
-# python -m uvicorn mark01:app --reload --port=5000
+# python -m uvicorn mark02:app --reload --port=5000
 
 coordenador = Coordenador
 coordenadorOnline = False

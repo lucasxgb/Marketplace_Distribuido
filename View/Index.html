@@ -58,40 +58,37 @@
     function pesquisarBanco() {
         event.preventDefault()
         var nome = document.getElementById('bpesquisa').value;
-        var requisicao
         let um ="http://127.0.0.1:4000/produtos/"
         let dois ="http://127.0.0.1:5000/produtos/"
         let tres = "http://127.0.0.1:8000/produtos/"
-        
         const requestUm = axios.get(um);
         const requestDois = axios.get(dois);
         const requestTres = axios.get(tres);
-        axios.all([requestUm, requestDois, requestTres]).then(axios.spread((...responses) => {
-                const responseOne = responses[0]
-                const responseTwo = responses[1]
-                const responesThree = responses[2]
-                console.log(responses)
-                    var lista_dados = Object.entries(data)
-                    var lista = Object.entries(lista_dados[0][1])
-                    var tamanho = lista.length
-                    for (var i=0; i<tamanho; i++){
-                        var nome = lista[i][0]
-                        var link = lista [i][1].linkImagem
-                        var index = i+1
-                        var preco = lista[i][1].preco
-                        if (document.getElementById(`item-${index}`).value != null){
-                            while (document.getElementById(`item-${index}`).value != null){
-                                index+=1
-                            }
-                        }else {
-                            document.getElementById(`item-${index}`).src = `${link}`
-                            document.getElementById(`item-${index}`).value = `${lista[i]}`
-                            document.getElementById(`div${index}`).value = `${nome}`
-                            alteraNome(index, nome)
+        axios.all([requestUm, requestDois,requestTres]).then(axios.spread((...responses) => {
+                const respostaUm = responses[0]
+                const respostaDois = responses[1]
+                const respostaTres = responses[2]
+                var lista_dados = Object.entries(respostaUm)
+                var lista = Object.entries(lista_dados[0][1])
+                var tamanho = lista.length
+                for (var i=0; i<tamanho; i++){
+                    var nome = lista[i][0]
+                    var link = lista [i][1].linkImagem
+                    var index = i+1
+                    var preco = lista[i][1].preco
+                    if (document.getElementById(`item-${index}`).value != null){
+                        while (document.getElementById(`item-${index}`).value != null){
+                            index+=1
                         }
-                        
-                        aux = 0;
+                    }else {
+                        document.getElementById(`item-${index}`).src = `${link}`
+                        document.getElementById(`item-${index}`).value = `${lista[i]}`
+                        document.getElementById(`div${index}`).value = `${nome}`
+                        alteraNome(index, nome)
                     }
+                    
+                    aux = 0;
+                }
 
                     
                 
