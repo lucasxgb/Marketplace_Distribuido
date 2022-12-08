@@ -77,6 +77,7 @@ def listagem(nome : str):
     with open("banco/carrinhoM2.json", 'r' , encoding='utf-8') as database:
         clientes = json.load(database)
     # Colocar nome da loja e retornar o Json
+    # Verificar se cliente tem itens no carrinho
     if nome.lower() in clientes:
         return {"Marketplace02" : clientes[nome.lower()]}
     else:
@@ -110,8 +111,13 @@ def carrinho(produto : ProdutoCadastrar, nome : str):
     with open("banco/carrinhoM2.json", 'r' , encoding='utf-8') as database:
         clientes = json.load(database)
     # Adicionar produto ao carrinho
+    
     prod[produto.nome.lower()] = {"preco" : produto.preco, "quantidade" : produto.quantidade, "linkImagem" : produto.linkImagem.lower()}
-    clientes[nome.lower()][produto.nome.lower() ] = prod[produto.nome.lower()]
+    if nome.lower() in clientes:
+        clientes[nome.lower()][produto.nome.lower()] = prod[produto.nome.lower()]
+    else:
+        clientes[nome.lower()] = {}
+        clientes[nome.lower()][produto.nome.lower()] = prod[produto.nome.lower()]
     # Escrever banco com os dados mudados
     with open("banco/carrinhoM2.json", 'w' , encoding='utf-8') as database:
         json.dump(clientes, database, indent=4)  
@@ -121,23 +127,80 @@ def carrinho(produto : ProdutoCadastrar, nome : str):
 
 
 
-# Fazer compra
-@app.put("/comprar")
-def comprar(produtosComprar : dict):
-    # Abrir banco
+# Verificar se produto tem quantidade valida para pedido
+@app.get("/quantidade/validar/{nome}")
+def verificarQuantidade(nome : str):
+    prodCarr = {}
+    # Abrir banco de carrinho
+    with open("banco/carrinhoM2.json", 'r' , encoding='utf-8') as database:
+        produtosCarrinho = json.load(database)
+    if nome.lower() in produtosCarrinho: #ver se a pessoa existe
+        prodCarr = produtosCarrinho[nome.lower()]
+    else:
+        return False
+    #Abrir banco dados
     with open("banco/produtosM2.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
-    # Reduzir o produto comprado
-    for nomeProduto in produtosComprar.keys():
-        if produtos[nomeProduto.lower()]["quantidade"] >= produtosComprar[nomeProduto]:
-            produtos[nomeProduto.lower()]["quantidade"] -=  produtosComprar[nomeProduto]
-        else:
-            return {"message" : "Compra negada"}
-    # Escrever banco com os dados mudados
+    
+    for item in prodCarr:
+        # Se quantidade do carrinho for maior que o estoque, mandar um False
+        if prodCarr[item]["quantidade"] > produtos[item]["quantidade"]: 
+            return False
+    return True
+       
+
+def verificarDisponibilidade(nome : str):
+    estoqueMark1 = requests.get("localhost:4000/quantidade/validar/" + nome) 
+    estoqueMark2 = requests.get("localhost:5000/quantidade/validar/" + nome) 
+    estoqueMark3 = requests.get("localhost:8000/quantidade/validar/" + nome) 
+    if estoqueMark1 == True and estoqueMark2 == True and estoqueMark3 == True:
+        return True
+    else:
+        return False 
+
+
+
+
+# Comprar direto sem verificar novamente
+@app.put("/comprar/direto/{nome}")
+def comprarDIreto(nome : str):
+    # Abrir banco de carrinho
+    with open("banco/carrinhoM2.json", 'r' , encoding='utf-8') as database:
+        produtosCarrinho = json.load(database)
+    
+    #Abrir banco dados
+    with open("banco/produtosM2.json", 'r' , encoding='utf-8') as database:
+        produtos = json.load(database)
+    
+    for item in produtosCarrinho[nome.lower()]:
+        # diminuir a quantidade no estoque
+        produtos[item]["quantidade"] -= produtosCarrinho[nome.lower()][item]["quantidade"]
+
+    # Apagar dados do carrinho do cliente
+    print(produtosCarrinho[nome.lower()])
+    produtosCarrinho[nome.lower()] = {}
+    
+    # Salvar novo estoque
     with open("banco/produtosM2.json", 'w' , encoding='utf-8') as database:
         json.dump(produtos, database, indent=4) 
     
-    return {"message" : "Compra realizada com sucesso"}
+    # Salvar carrinho
+    with open("banco/carrinhoM2.json", 'w' , encoding='utf-8') as database:
+        json.dump(produtosCarrinho, database, indent=4) 
+
+
+# Fazer compra
+@app.put("/comprar")
+def comprar(nome : str):
+    liberado_fazer_compra = verificarDisponibilidade(nome)
+    if liberado_fazer_compra == True:
+        estoqueMark1 = requests.put("localhost:4000/comprar/direto/" + nome) 
+        estoqueMark2 = requests.put("localhost:5000/comprar/direto/" + nome) 
+        estoqueMark3 = requests.put("localhost:8000/comprar/direto/" + nome)
+        return {"message" : "Compra realizada com sucesso"}
+    else:
+         return {"message" : "Compra negada"}
+
 
 
 
@@ -159,12 +222,11 @@ def comprar(produtosComprar : dict):
 def pedir_para_ser_coordenador():
     global coordenadorOnline
     print("=============== Pendindo para ser coordenador ======================")
-    print(f"=================== {coordenador.nomeCoordenador} ==================")
-    print(f"=================== {coordenadorOnline} ==================")
     #Mandar mensagem para os 3 marketplaces com o padrão 
         # "/eleicao/marketplace01"
         # "/eleicao/marketplace02"
         # "/eleicao/marketplace03"
+    
     if coordenadorOnline != True:
         pedidoMarket01 = requests.post("localhost:4000/eleicao/marketplace01") 
         pedidoMarket02 = requests.post("localhost:5000/eleicao/marketplace02")
@@ -191,7 +253,7 @@ def pedir_para_ser_coordenador():
                 # "/eleicao/marketplace03"
             requests.post("localhost:4000/coordenador/eleito/marketplace01") #Market01
             requests.post("localhost:8000/coordenador/eleito/marketplace03") #Market02
-            return {"coordendador" : "marketplace01"}
+            return {"coordendador" : "marketplace02"}
         else:
             coordenador.jaVotou = False
             coordenador.votoMarktplace01 = False
@@ -267,13 +329,11 @@ def eleito(marketplace : str):
 
   
 
-
 # Dizer que estou online
 @app.get("/coordenador/online")
 def online():
+    print(coordenador.nomeCoordenador)
     return True
-
-
 
 
 # Thread para ficar pedindo pra ser o coordenador
