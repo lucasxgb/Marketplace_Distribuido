@@ -1,0 +1,12 @@
+{
+    "camisa flamengo": {
+        "preco": 40.5,
+        "quantidade": 9,
+        "linkImagem": "https://flamengo.vteximg.com.br/arquivos/ids/164057-473-473/HA8342-1.png?v=637807273095830000"
+    },
+    "camisa bahia": {
+        "preco": 40.5,
+        "quantidade": 8,
+        "linkImagem": "https://www.casadotricolor.com.br/imagem/index/19128180/G/bahia_88.png"
+    }
+}
