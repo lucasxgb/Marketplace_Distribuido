@@ -16,7 +16,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://127.0.0.1",
-    "http://127.0.0.1:5500"
+    "http://127.0.0.1:8000"
 
 ]
 
@@ -166,7 +166,7 @@ def pedir_para_ser_coordenador():
     if coordenadorOnline != True:
         pedidoMarket01 = requests.post("localhost:4000/eleicao/marketplace01") 
         pedidoMarket02 = requests.post("localhost:5000/eleicao/marketplace02")
-        pedidoMarket03 = requests.post("localhost:5500/eleicao/marketplace03")
+        pedidoMarket03 = requests.post("localhost:8000/eleicao/marketplace03")
 
         aprovacoes = 0
 
