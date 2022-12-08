@@ -23,14 +23,10 @@
         <h1 id="Carrinho"> Carrinho </h1>
         <div class="produto">
             <div class="ladoEsquerdo">
-                <div class="imagem itensCarrinho">
-                    <div class="itemCarrinho">
-                        <img class="img1" src="https://storage.googleapis.com/dpw/app/uploads/2019/04/lazy-loading-nativo-imagens-iframes_.jpg" alt="">
-                        <h2>Nome</h2>
-                        <h3>Preço XX,xx</h3>
-                        <h3>Quantidade 2</h3>
-                        <h4 style="font-size: 10px;">Loja</h4>
-                    </div>                   
+                <div class="imagem" id="itensCarrinho">
+
+                    
+
                 </div>
             </div>
             <div class="ladoDireito">
@@ -75,7 +71,7 @@
        
         event.preventDefault()
         var nome = document.getElementById('nomeC').value;
-        caixaItens = document.getElementsByClassName("itensCarrinho")
+        caixaItens = document.getElementById("itensCarrinho")
 
         let um = "http://127.0.0.1:4000/produtosCarrinho/" + nome
         let dois ="http://127.0.0.1:5000/produtosCarrinho/" + nome
@@ -84,21 +80,61 @@
         const requestUm = axios.get(um);
         const requestDois = axios.get(dois);
         const requestTres = axios.get(tres);
-
+        
         requestUm.then((resultado) => {
-            for (nomeItem in resultado.data.MarketplanomeIteme01){
+            for (nomeItem in resultado.data.Marketplace01){
                 linkImagem = resultado.data.Marketplace01[nomeItem].linkImagem
                 quantidade = resultado.data.Marketplace01[nomeItem].quantidade
                 preco = resultado.data.Marketplace01[nomeItem].preco
-                //console.log(linkImagem)
-                //console.log(preco)
-                //console.log(quantidade)
+                console.log(resultado.data.Marketplace01[nomeItem])
+                console.log(preco)
+                console.log(quantidade)
+                
                 caixaItens.innerHTML = `<div class="itemCarrinho">
                         <img class="img1" src="${linkImagem}" alt="">
                         <h2>${nomeItem}</h2>
                         <h3>${preco}</h3>
                         <h3>Q: ${quantidade}</h3>
                         <h4 style="font-size: 10px;">Marketplace 01</h4>
+                    </div>`
+            }
+        })
+
+
+        requestDois.then((resultado) => {
+            for (nomeItem in resultado.data.Marketplace02){
+                linkImagem = resultado.data.Marketplace02[nomeItem].linkImagem
+                quantidade = resultado.data.Marketplace02[nomeItem].quantidade
+                preco = resultado.data.Marketplace02[nomeItem].preco
+                console.log(resultado.data.Marketplace02[nomeItem])
+                console.log(preco)
+                console.log(quantidade)
+                
+                caixaItens.innerHTML = caixaItens.innerHTML + `<div class="itemCarrinho">
+                        <img class="img1" src="${linkImagem}" alt="">
+                        <h2>${nomeItem}</h2>
+                        <h3>${preco}</h3>
+                        <h3>Q: ${quantidade}</h3>
+                        <h4 style="font-size: 10px;">Marketplace 02</h4>
+                    </div>`
+            }
+        })
+
+        requestUm.then((resultado) => {
+            for (nomeItem in resultado.data.Marketplace03){
+                linkImagem = resultado.data.Marketplace03[nomeItem].linkImagem
+                quantidade = resultado.data.Marketplace03[nomeItem].quantidade
+                preco = resultado.data.Marketplace03[nomeItem].preco
+                console.log(resultado.data.Marketplace03[nomeItem])
+                console.log(preco)
+                console.log(quantidade)
+                
+                caixaItens.innerHTML = caixaItens.innerHTML + `<div class="itemCarrinho">
+                        <img class="img1" src="${linkImagem}" alt="">
+                        <h2>${nomeItem}</h2>
+                        <h3>${preco}</h3>
+                        <h3>Q: ${quantidade}</h3>
+                        <h4 style="font-size: 10px;">Marketplace 03</h4>
                     </div>`
             }
         })
