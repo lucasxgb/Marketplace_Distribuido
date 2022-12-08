@@ -15,6 +15,7 @@
         <div class="texto"> Market Distribuido </div>
         <ul class="opcoesMenu">
             <li> <a href="index.html"> <img src="images/home.png" alt="Botão Home"> </a></li>
+            <li> <a href="adicionar.html"> <img src="images/mais.png" alt="Botão Adicionar"> </a></li>
             <li> <a href="carrinho.html"> <img src="images/carrinho.png" alt="Botão carrinho de Compras"> </a></li>
         </ul>
     </div>
@@ -71,7 +72,7 @@
             var lista_objetos = Object.entries(lista[0][1])
             console.log(lista_objetos)
             if(lista_objetos.length != 0){
-                
+                localStorage.setItem('market', i+1)
                 var nome = lista_objetos[0][0]
                 var link = lista_objetos[0][1].linkImagem
                 var preco = lista_objetos[0][1].preco
@@ -87,6 +88,7 @@
         
 
     function insereCarrinho(){
+        console.log(localStorage.getItem('market'))
         event.preventDefault()
         var linkImage = document.getElementById("img1").src 
         var nomeProdt = document.getElementById("nomeProduto").innerHTML 
@@ -101,13 +103,34 @@
             "nomePessoa": nomePessoa.toString()
         }
 
-        axios.put("http://127.0.0.1:4000/carrinho", {produto, nomePessoa})
-        .then(response => response.data)
-      .catch(error => {
-        if (error.response) {
-          console.log(error.response);
+        
+        var marketenviar = localStorage.getItem('market')
+        if (marketenviar == 1){
+            axios.put("http://127.0.0.1:4000/carrinho", {produto, nomePessoa})
+                .then(response => response.data)
+                .catch(error => {
+            if (error.response) {
+            console.log(error.response);
+            }
+            });
+        }else if (marketenviar == 2){
+            axios.put("http://127.0.0.1:5000/carrinho", {produto, nomePessoa})
+                .then(response => response.data)
+                .catch(error => {
+            if (error.response) {
+            console.log(error.response);
+            }
+            });
+        }else if (marketenviar == 3){
+            axios.put("http://127.0.0.1:8000/carrinho", {produto, nomePessoa})
+                .then(response => response.data)
+                .catch(error => {
+            if (error.response) {
+            console.log(error.response);
+            }
+            });
         }
-      });
+        
         
     }
     

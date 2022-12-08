@@ -7,16 +7,59 @@
     <title>Adicionar Itens</title>
     <link rel="stylesheet" href="css/style-header.css">
     <link rel="stylesheet" href="css/style-reset.css">
+    <link rel="stylesheet" href="css/style-adicionar.css">
 
 </head>
 <body>
-     <div class="cabecalho">
+    <div class="cabecalho">
         <div class="logoCabecalho" > <a href="index.html"><img src="images/logoLoja.png" alt="Logo da Loja"></a></div>
         <div class="texto"> Market Distribuido </div>
         <ul class="opcoesMenu">
             <li> <a href="index.html"> <img src="images/home.png" alt="Botão Home"> </a></li>
+            <li> <a href="adicionar.html"> <img src="images/mais.png" alt="Botão Adicionar"> </a></li>
             <li> <a href="carrinho.html"> <img src="images/carrinho.png" alt="Botão carrinho de Compras"> </a></li>
         </ul>
     </div>
+    <div class="main">
+        <h1 id="nomeProduto">Cadastro item</h1>
+        <div class="central">
+            <form id="formCadastro" action = "adicionar.html" onsubmit="cadastrar()" >
+                <div class="Market">
+                    <h3> Loja a adicionar </h3>
+                    <input id="loja" value="1" max="3" min="1" type="number">
+                </div> 
+                <div class="nomeProduto">
+                    <h3> Nome do produto </h3>
+                    <input type="text" id="nomeProduto" placeholder="Nome Produto">
+                </div> 
+                <div class="preco">
+                    <h3> Preço do produto </h3>
+                    <input type="text" id="precoProduto" placeholder="Preco Produto">
+                </div> 
+                <div class="quantidade">
+                    <h3> Quantidade do produto </h3>
+                    <input type="text" id="quantidadeProduto" placeholder="quantidade Produto">
+                </div> 
+                <div class="imagem">
+                    <h3> Link imagem </h3>
+                    <input type="text" id="linkimagem" placeholder="link com imagem">
+                </div> 
+
+                <button type="submit">cadastrar</button> 
+            </form>
+            
+        </div>
+    </div>
 </body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function cadastrar(){
+        var loja = document.getElementById('loja').value
+
+        console.log(loja)
+    }
+</script>
+
+
 </html>
