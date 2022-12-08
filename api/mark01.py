@@ -43,7 +43,7 @@ coordenadorOnline = False
 @app.get("/produtos")
 def listagem():
     # Abrir banco
-    with open("banco/produtos.json", 'r' , encoding='utf-8') as database:
+    with open("banco/produtosM1.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
     # Colocar nome da loja e retornar o Json
     return {"Marketplace01" : produtos}
@@ -57,7 +57,7 @@ def listagem():
 def listagem_especifica(nome: str):
     filtroProdutos = {}
     # Abrir banco
-    with open("banco/produtos.json", 'r' , encoding='utf-8') as database:
+    with open("banco/produtosM1.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
     # Filtrar produtos
     for produto in produtos.keys():
@@ -73,7 +73,7 @@ def listagem_especifica(nome: str):
 @app.get("/produtosCarrinho/{nome}")
 def listagem(nome : str):
     # Abrir banco
-    with open("banco/carrinho.json", 'r' , encoding='utf-8') as database:
+    with open("banco/carrinhoM1.json", 'r' , encoding='utf-8') as database:
         clientes = json.load(database)
     # Colocar nome da loja e retornar o Json
     return {"Marketplace01" : clientes[nome.lower()]}
@@ -85,12 +85,12 @@ def listagem(nome : str):
 @app.post("/produto")
 def cadastro(produto : ProdutoCadastrar):
     # Abrir banco
-    with open("banco/produtos.json", 'r' , encoding='utf-8') as database:
+    with open("banco/produtosM1.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
     # Escrever novo produto no banco
     produtos[produto.nome.lower()] = {"preco" : produto.preco, "quantidade" : produto.quantidade, "linkImagem" : produto.linkImagem.lower()}
     # Escrever banco com os dados mudados
-    with open("banco/produtos.json", 'w' , encoding='utf-8') as database:
+    with open("banco/produtosM1.json", 'w' , encoding='utf-8') as database:
         json.dump(produtos, database, indent=4)  
     # Retornar mensagem de sucesso
     return {"message" : "Sucesso" }
@@ -103,13 +103,13 @@ def cadastro(produto : ProdutoCadastrar):
 def carrinho(produto : ProdutoCadastrar, nome : str):
     prod = {}
     # Abrir banco
-    with open("banco/carrinho.json", 'r' , encoding='utf-8') as database:
+    with open("banco/carrinhoM1.json", 'r' , encoding='utf-8') as database:
         clientes = json.load(database)
     # Adicionar produto ao carrinho
     prod[produto.nome.lower()] = {"preco" : produto.preco, "quantidade" : produto.quantidade, "linkImagem" : produto.linkImagem.lower()}
     clientes[nome.lower()][produto.nome.lower() ] = prod[produto.nome.lower()]
     # Escrever banco com os dados mudados
-    with open("banco/carrinho.json", 'w' , encoding='utf-8') as database:
+    with open("banco/carrinhoM1.json", 'w' , encoding='utf-8') as database:
         json.dump(clientes, database, indent=4)  
     
     return {"message" : "Adicionado ao carrinho com sucesso"}
@@ -121,7 +121,7 @@ def carrinho(produto : ProdutoCadastrar, nome : str):
 @app.put("/comprar")
 def comprar(produtosComprar : dict):
     # Abrir banco
-    with open("banco/produtos.json", 'r' , encoding='utf-8') as database:
+    with open("banco/produtosM1.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
     # Reduzir o produto comprado
     for nomeProduto in produtosComprar.keys():
@@ -130,7 +130,7 @@ def comprar(produtosComprar : dict):
         else:
             return {"message" : "Compra negada"}
     # Escrever banco com os dados mudados
-    with open("banco/produtos.json", 'w' , encoding='utf-8') as database:
+    with open("banco/produtosM1.json", 'w' , encoding='utf-8') as database:
         json.dump(produtos, database, indent=4) 
     
     return {"message" : "Compra realizada com sucesso"}

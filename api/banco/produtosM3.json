@@ -1,0 +1,17 @@
+{
+    "bola de couro": {
+        "preco": 40.5,
+        "quantidade": 10,
+        "linkImagem": "https://assets.stickpng.com/images/580b585b2edbce24c47b2b85.png"
+    },
+    "bola jabulani": {
+        "preco": 70.5,
+        "quantidade": 10,
+        "linkImagem": "https://i.pinimg.com/originals/e2/7f/7c/e27f7c1a50031ac659810d976902c12d.png"
+    },
+    "bola cafusa": {
+        "preco": 100.0,
+        "quantidade": 20,
+        "linkImagem": "https://tudosobreprodutos.com.br/img/bola-adidas-cafusa-glider-copa-das-confederacoes-tam-5.png"
+    }
+}
