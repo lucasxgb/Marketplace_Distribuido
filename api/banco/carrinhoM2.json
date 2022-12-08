@@ -1,3 +1,9 @@
 {
-    
+    "silas" : {
+        "cal\u00e7a flamengo": {
+            "preco": 40.5,
+            "quantidade": 7,
+            "linkImagem": ""
+        }
+    }
 }

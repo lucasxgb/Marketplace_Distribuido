@@ -77,7 +77,10 @@ def listagem(nome : str):
     with open("banco/carrinhoM2.json", 'r' , encoding='utf-8') as database:
         clientes = json.load(database)
     # Colocar nome da loja e retornar o Json
-    return {"Marketplace02" : clientes[nome.lower()]}
+    if nome.lower() in clientes:
+        return {"Marketplace02" : clientes[nome.lower()]}
+    else:
+        return{"Marketplace02" : {}}
 
 
 
