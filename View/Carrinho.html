@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="ladoDireito">
-                <form id="formCarrinho" onsubmit="insereCarrinho()" method="PUT">
+                <form id="formCarrinho" onsubmit="comprar()" method="PUT">
                 
                 <div class="nomeCliente">
                     <h3>Nome cliente</h3>
@@ -38,7 +38,7 @@
                 </div> 
                 <div class="numeroCartao">
                     <h3>Número Cartão</h3>
-                    <input type="text" id="numeroCartao" placeholder="Número do cartão ">
+                    <input onchange="comprar()" type="text" id="numeroCartao" placeholder="Número do cartão ">
                 </div> 
                 <div class="cvv">
                     <h3>Cvv</h3>
@@ -52,7 +52,7 @@
                 
                 
                 <div class="Total">
-                    <h3>Total R$: </h3>
+                    <h3 id="totalValor">Total R$: </h3>
                     <h1 id="preco1"></h1>
                 </div>
                 <button >Comprar</button> 
@@ -72,6 +72,8 @@
         event.preventDefault()
         var nome = document.getElementById('nomeC').value;
         caixaItens = document.getElementById("itensCarrinho")
+        setarValorTotal = document.getElementById("totalValor")
+        let valorTotal = 0
 
         let um = "http://127.0.0.1:4000/produtosCarrinho/" + nome
         let dois ="http://127.0.0.1:5000/produtosCarrinho/" + nome
@@ -86,62 +88,95 @@
                 linkImagem = resultado.data.Marketplace01[nomeItem].linkImagem
                 quantidade = resultado.data.Marketplace01[nomeItem].quantidade
                 preco = resultado.data.Marketplace01[nomeItem].preco
-                console.log(resultado.data.Marketplace01[nomeItem])
-                console.log(preco)
-                console.log(quantidade)
+                //console.log(resultado.data.Marketplace01[nomeItem])
+                //console.log(preco)
+                //console.log(quantidade)
                 
+                valorTotal = valorTotal + (preco * quantidade)
                 caixaItens.innerHTML = `<div class="itemCarrinho">
                         <img class="img1" src="${linkImagem}" alt="">
-                        <h2>${nomeItem}</h2>
-                        <h3>${preco}</h3>
-                        <h3>Q: ${quantidade}</h3>
+                        <h2 class="nomeProduto">${nomeItem}</h2>
+                        <h3>R$${preco}</h3>
+                        <h3 class="qtd">${quantidade}</h3>
                         <h4 style="font-size: 10px;">Marketplace 01</h4>
                     </div>`
+                
+                setarValorTotal.innerHTML = "Total R$ : " + valorTotal
             }
         })
-
-
+                
         requestDois.then((resultado) => {
             for (nomeItem in resultado.data.Marketplace02){
                 linkImagem = resultado.data.Marketplace02[nomeItem].linkImagem
                 quantidade = resultado.data.Marketplace02[nomeItem].quantidade
                 preco = resultado.data.Marketplace02[nomeItem].preco
-                console.log(resultado.data.Marketplace02[nomeItem])
-                console.log(preco)
-                console.log(quantidade)
+                //console.log(resultado.data.Marketplace02[nomeItem])
+                //console.log(preco)
+                //console.log(quantidade)
+                
+                valorTotal = valorTotal + (preco * quantidade)
                 
                 caixaItens.innerHTML = caixaItens.innerHTML + `<div class="itemCarrinho">
                         <img class="img1" src="${linkImagem}" alt="">
-                        <h2>${nomeItem}</h2>
-                        <h3>${preco}</h3>
-                        <h3>Q: ${quantidade}</h3>
+                        <h2 class="nomeProduto">${nomeItem}</h2>
+                        <h3>R$${preco}</h3>
+                        <h3 class="qtd">${quantidade}</h3>
                         <h4 style="font-size: 10px;">Marketplace 02</h4>
                     </div>`
+                
+                setarValorTotal.innerHTML = "Total R$ : " + valorTotal 
             }
         })
 
-        requestUm.then((resultado) => {
+        requestTres.then((resultado) => {
             for (nomeItem in resultado.data.Marketplace03){
                 linkImagem = resultado.data.Marketplace03[nomeItem].linkImagem
                 quantidade = resultado.data.Marketplace03[nomeItem].quantidade
                 preco = resultado.data.Marketplace03[nomeItem].preco
-                console.log(resultado.data.Marketplace03[nomeItem])
-                console.log(preco)
-                console.log(quantidade)
+                //console.log(resultado.data.Marketplace03[nomeItem])
+                //console.log(preco)
+                //console.log(quantidade)
                 
+                valorTotal = valorTotal + (preco * quantidade)
+
                 caixaItens.innerHTML = caixaItens.innerHTML + `<div class="itemCarrinho">
                         <img class="img1" src="${linkImagem}" alt="">
-                        <h2>${nomeItem}</h2>
-                        <h3>${preco}</h3>
-                        <h3>Q: ${quantidade}</h3>
+                        <h2 class="nomeProduto">${nomeItem}</h2>
+                        <h3>R$${preco}</h3>
+                        <h3 class="qtd">${quantidade}</h3>
                         <h4 style="font-size: 10px;">Marketplace 03</h4>
                     </div>`
+                
+                setarValorTotal.innerHTML = "Total R$ : " + valorTotal
             }
         })
+
+        setarValorTotal.innerHTML = "" + setarValorTotal.innerHTML + "" + valorTotal
 
 
     }
     
+    function comprar() {
+        let produtosComprar = {}
+        qtds = document.querySelectorAll(".qtd")
+        nomesProdutos = document.querySelectorAll(".nomeProduto")
+        
+        //console.log(qtds.length)
+        //console.log(nomesProdutos.length)
+    
+        for (var i = 0; i < qtds.length; i++) {
+            //console.log(nomesProdutos[i].outerText)
+            //console.log(qtds[i].outerText)
+            
+            produtosComprar[nomesProdutos[i].outerText] = parseInt(qtds[i].outerText)
+            
+        }
+        
+        //console.log(produtosComprar)
+
+        axios.post("", produtosComprar);
+        
+    }
 
 </script>
 
