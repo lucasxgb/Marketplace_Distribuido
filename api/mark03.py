@@ -14,8 +14,8 @@ import threading
 app = FastAPI()
 
 origins = [
-    "http://localhost",
-    "http://127.0.0.1",
+    "http://localhost/",
+    "http://127.0.0.1/",
     "http://127.0.0.1:5500"
 ]
 
@@ -149,10 +149,14 @@ def verificarQuantidade(nome : str):
     return True
        
 
+#Verificar
 def verificarDisponibilidade(nome : str):
-    estoqueMark1 = requests.get("localhost:4000/quantidade/validar/" + nome) 
-    estoqueMark2 = requests.get("localhost:5000/quantidade/validar/" + nome) 
-    estoqueMark3 = requests.get("localhost:8000/quantidade/validar/" + nome) 
+    link1 = f"http://localhost:4000/quantidade/validar/{nome}"
+    link2 = f"http://localhost:5000/quantidade/validar/{nome}"
+    link3 = f"http://localhost:8000/quantidade/validar/{nome}"
+    estoqueMark1 = requests.get(link1) 
+    estoqueMark2 = requests.get(link2) 
+    estoqueMark3 = requests.get(link3) 
     if estoqueMark1 == True and estoqueMark2 == True and estoqueMark3 == True:
         return True
     else:
@@ -194,9 +198,13 @@ def comprarDIreto(nome : str):
 def comprar(nome : str):
     liberado_fazer_compra = verificarDisponibilidade(nome)
     if liberado_fazer_compra == True:
-        estoqueMark1 = requests.put("localhost:4000/comprar/direto/" + nome) 
-        estoqueMark2 = requests.put("localhost:5000/comprar/direto/" + nome) 
-        estoqueMark3 = requests.put("localhost:8000/comprar/direto/" + nome)
+        link1 = f"http://localhost:4000/comprar/direto/{nome}"
+        link2 = f"http://localhost:5000/comprar/direto/{nome}"
+        link3 = f"http://localhost:8000/comprar/direto/{nome}"
+
+        estoqueMark1 = requests.put(link1) 
+        estoqueMark2 = requests.put(link2) 
+        estoqueMark3 = requests.put(link3)
         return {"message" : "Compra realizada com sucesso"}
     else:
          return {"message" : "Compra negada"}
