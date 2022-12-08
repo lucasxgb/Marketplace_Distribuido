@@ -86,11 +86,16 @@
                         var link = lista_objetos [j][1].linkImagem
                         var index = j+1
                         var preco = lista_objetos[j][1].preco
-                        console.log(nome)
-                        document.getElementById(`item-${index}`).src = `${link}`
-                        document.getElementById(`item-${index}`).value = `${lista_objetos[j].toString()}`
-                        document.getElementById(`div${index}`).value = `${nome}`
-                        alteraNome(index, nome)
+                        if (document.getElementById(`item-${index}`).value != null){
+
+                        } else{
+                            document.getElementById(`item-${index}`).src = `${link}`
+                            document.getElementById(`item-${index}`).value = `${lista_objetos[j].toString()}`
+                            document.getElementById(`div${index}`).value = `${nome}`
+                            alteraNome(index, nome)
+                        }
+                        
+                       
                         
                     }
                 }
