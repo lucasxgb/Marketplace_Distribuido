@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/Style-Header.css">
     <link rel="stylesheet" href="css/style-reset.css">
+    <link rel="stylesheet" href="css/style-carrinho.css">
     <title> Carrinho </title>
     
 </head>
@@ -17,6 +18,38 @@
             <li> <a href="index.html"> <img src="images/home.png" alt="Botão Home"> </a></li>
             <li> <a href="carrinho.html"> <img src="images/carrinho.png" alt="Botão carrinho de Compras"> </a></li>
         </ul>
+    </div>
+    <div class="main">
+        <h1 id="Carrinho"> Carrinho </h1>
+        <div class="produto">
+            <div class="ladoEsquerdo">
+                <div class="imagem">
+                    <!--Imagem aqui -->
+                    <img id="img1" src="" alt="">
+                </div>
+            </div>
+            <div class="ladoDireito">
+                <form id="formCarrinho" onsubmit="insereCarrinho()" method="PUT">
+                
+                <div class="nomeCliente">
+                    <h3>Nome cliente</h3>
+                    <input type="text" id="nomeC" placeholder="Seu nome ">
+                </div> 
+                <div class="numeroCartão">
+                    <h3>Número Cartão</h3>
+                    <input type="text" id="numeroCartao" placeholder="Seu nome ">
+                </div> 
+
+                
+                
+                <div class="Total">
+                    <h3>Total R$: </h3>
+                    <h1 id="preco1"></h1>
+                </div>
+                <button >Comprar</button> 
+        
+            </div>
+        </div>
     </div>
 
 </body>

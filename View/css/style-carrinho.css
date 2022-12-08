@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.main{
+    color: black;
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 50px;   
+}
+
+.produto{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ladoEsquerdo{
+    width: 70%;
+}
+
+.ladoDireito{
+    width: 30%;
+}
+
+.imagem{
+    width: 650px;
+    height: 620px;
+    border: solid 2px #cecece;
+    box-shadow: 0px 0px 3px;
+    border-radius: 15px;
+}
+
+.imagem img{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.ladoDireito h1{
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.ladoDireito h3{
+    font-size: 25px;
+}
+
+.produto .quantidade input{
+    width: 100px;
+    height: 25px;
+    border: solid 2px #929191;
+    box-shadow: 0px 0px 1px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.produto .nomeCliente input{
+    width: 100px;
+    height: 25px;
+    border: solid 2px #929191;
+    box-shadow: 0px 0px 1px;
+    border-radius: 5px;
+    margin-bottom: 80px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.produto button{
+    width: 190px;
+    height: 90px;
+    background-color: rgb(79, 78, 78);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#formCarrinho{
+    margin: 0;
+    padding: 0;
+}
+
+.produto button:hover{
+    background-color: rgb(62, 60, 60);
+}
+
+
