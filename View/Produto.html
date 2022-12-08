@@ -110,7 +110,7 @@
         
         var marketenviar = localStorage.getItem('market')
         if (marketenviar == 1){
-            axios.put("http://127.0.0.1:4000/carrinho?="+nomePessoa, data, options)
+            axios.put("http://127.0.0.1:4000/carrinho", data, options)
         }else if (marketenviar == 2){
             axios.put("http://127.0.0.1:5000/carrinho", {produto, nomePessoa})
                 .then(response => response.data)
