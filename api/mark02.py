@@ -34,7 +34,7 @@ app.add_middleware(
 
 
 # Ligar o uvicorn
-# python -m uvicorn mark01:app --reload --port=4000
+# python -m uvicorn mark01:app --reload --port=5000
 
 coordenador = Coordenador
 coordenadorOnline = False
@@ -46,7 +46,7 @@ def listagem():
     with open("banco/produtos.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
     # Colocar nome da loja e retornar o Json
-    return {"Marketplace01" : produtos}
+    return {"Marketplace02" : produtos}
     
 
 
@@ -64,7 +64,7 @@ def listagem_especifica(nome: str):
         if nome.lower() in produto:
             filtroProdutos[produto] = produtos[produto]
     # Colocar nome da loja e retornar o Json
-    return {"Marketplace01" : filtroProdutos}
+    return {"Marketplace02" : filtroProdutos}
 
 
 
@@ -76,7 +76,7 @@ def listagem(nome : str):
     with open("banco/carrinho.json", 'r' , encoding='utf-8') as database:
         clientes = json.load(database)
     # Colocar nome da loja e retornar o Json
-    return {"Marketplace01" : clientes[nome.lower()]}
+    return {"Marketplace02" : clientes[nome.lower()]}
 
 
 
@@ -152,11 +152,12 @@ def comprar(produtosComprar : dict):
 def pedir_para_ser_coordenador():
     global coordenadorOnline
     print("=============== Pendindo para ser coordenador ======================")
+    print(f"=================== {coordenador.nomeCoordenador} ==================")
+    print(f"=================== {coordenadorOnline} ==================")
     #Mandar mensagem para os 3 marketplaces com o padrão 
         # "/eleicao/marketplace01"
         # "/eleicao/marketplace02"
         # "/eleicao/marketplace03"
-    
     if coordenadorOnline != True:
         pedidoMarket01 = requests.post("localhost:4000/eleicao/marketplace01") 
         pedidoMarket02 = requests.post("localhost:5000/eleicao/marketplace02")
@@ -174,14 +175,14 @@ def pedir_para_ser_coordenador():
         if aprovacoes >= 1.5:
             # Eleger esse como o coordenador 
             coordenador.existeCoordenador = True
-            coordenador.nomeCoordenador = "Marktplace01"
+            coordenador.nomeCoordenador = "Marktplace02"
             coordenador.souCoordenador = True
             # Avisar aos outros
             #Mandar mensagem para os 3 marketplaces com o padrão 
                 # "/eleicao/marketplace01"
                 # "/eleicao/marketplace02"
                 # "/eleicao/marketplace03"
-            requests.post("localhost:5000/coordenador/eleito/marketplace02") #Market01
+            requests.post("localhost:4000/coordenador/eleito/marketplace01") #Market01
             requests.post("localhost:5500/coordenador/eleito/marketplace03") #Market02
             return {"coordendador" : "marketplace01"}
         else:
@@ -212,8 +213,8 @@ def verificar_coordenador_online():
     coordenadorOnline = False
     if coordenador.souCoordenador == True:
         coordenadorOnline = True
-    if coordenador.nomeCoordenador == "Marktplace02":
-        coordenadorOnline = requests.get("localhost:5000/coordenador/online")
+    if coordenador.nomeCoordenador == "Marktplace01":
+        coordenadorOnline = requests.get("localhost:4000/coordenador/online")
     elif coordenador.nomeCoordenador == "Marktplace03":
         coordenadorOnline = requests.get("localhost:5500/coordenador/online")
 
@@ -254,16 +255,18 @@ def eleito(marketplace : str):
     coordenador.votoMarktplace03 = False
     coordenador.existeCoordenador = True
     coordenador.nomeCoordenador = marketplace
-    if marketplace != "marketplace01":
+    if marketplace != "marketplace02":
         coordenador.souCoordenador = False
 
   
 
+
 # Dizer que estou online
 @app.get("/coordenador/online")
 def online():
-    print(coordenador.nomeCoordenador)
     return True
+
+
 
 
 # Thread para ficar pedindo pra ser o coordenador
