@@ -59,16 +59,18 @@
         event.preventDefault()
         var nome = document.getElementById('bpesquisa').value;
         var requisicao
+        let um ="http://127.0.0.1:4000/produtos/"
+        let dois ="http://127.0.0.1:5000/produtos/"
+        let tres = "http://127.0.0.1:8000/produtos/"
         
-        
-        const requestUm = axios.get("http://127.0.0.1:4000/produtos/");
-        const requestDois = axios.get("http://127.0.0.1:5000/produtos/");
-        const requestTres = axios.get("http://127.0.0.1:8000/produtos/");
+        const requestUm = axios.get(um);
+        const requestDois = axios.get(dois);
+        const requestTres = axios.get(tres);
         axios.all([requestUm, requestDois, requestTres]).then(axios.spread((...responses) => {
                 const responseOne = responses[0]
                 const responseTwo = responses[1]
                 const responesThree = responses[2]
-                console.log(responses)
+                console.log(responses[2])
                     var lista_dados = Object.entries(data)
                     var lista = Object.entries(lista_dados[0][1])
                     var tamanho = lista.length
