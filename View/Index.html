@@ -60,9 +60,10 @@
         var nome = document.getElementById('bpesquisa').value;
         var requisicao
         if (nome == ""){
-            requisicao = axios.get(`http://127.0.0.1:8000/produtos/`)
+            requisicao = axios.get(`http://127.0.0.1:4000/produtos/`)
+            
         }else{
-            requisicao = axios.get(`http://127.0.0.1:8000/produtos/${nome}`)
+            requisicao = axios.get(`http://127.0.0.1:4000/produtos/${nome}`)
         }
         requisicao.then(response => {
                         var data = response.data
@@ -86,7 +87,50 @@
                     .catch(error => {
                         console.log(error)
                     })
+
+        if (nome == ""){
+            requisicao = axios.get(`http://127.0.0.1:5000/produtos/`)
+            
+        }else{
+            requisicao = axios.get(`http://127.0.0.1:5000/produtos/${nome}`)
         }
+        requisicao.then(response => {
+                        var data = response.data
+                        var lista_dados = Object.entries(data)
+                        var lista = Object.entries(lista_dados[0][1])
+                        var tamanho = lista.length
+                        var aux = tamanho
+                        for (var i=0; i<tamanho; i++){
+                            var nome = lista[i][0]
+                            var link = lista [i][1].linkImagem
+                            var index = i+1
+                            var auxindex = index
+                            var preco = lista[i][1].preco
+                            if(document.getElementById(`item-${index}`).src!= null){
+                                while (document.getElementById(`item-${auxindex}`).src != null){
+                                    auxindex +=1
+                                }
+                            } else {
+                                document.getElementById(`item-${index}`).src = `${link}`
+                                document.getElementById(`item-${index}`).value = `${lista[i]}`
+                                document.getElementById(`div${index}`).value = `${nome}`
+                                alteraNome(index, nome)
+                            }auxindex = 0;
+                            
+                            
+                        } 
+
+                        
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+        
+
+
+
+    }
+
         
     function alteraNome(index, nome){
         var texto = document.getElementById(`nome${index}`)

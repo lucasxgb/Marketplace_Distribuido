@@ -30,7 +30,7 @@
             <div class="ladoDireito">
                 <form id="formCarrinho" onsubmit="insereCarrinho()" method="PUT">
                 <div class="preco">
-                    <h3>Por: </h3>
+                    <h3>Por R$: </h3>
                     <h1 id="preco1"></h1>
                 </div>
 
@@ -56,7 +56,7 @@
 <script>
 
     var carregou = localStorage.getItem('informações')
-    axios.get(`http://127.0.0.1:8000/produtos/${carregou}`)
+    axios.get(`http://127.0.0.1:4000/produtos/${carregou}`)
             .then(response => {
                 var data = response.data
                 var lista_dados = Object.entries(data)
@@ -66,7 +66,7 @@
                 var preco = lista[0][1].preco
                 document.getElementById("nomeProduto").innerHTML = `${nome.toUpperCase()}`
                 document.getElementById("img1").src = link
-                document.getElementById("preco1").innerHTML = `R$ ${preco}`                    
+                document.getElementById("preco1").innerHTML = `${preco}`                    
             })
             .catch(error => {
                 console.log(error)
@@ -79,15 +79,16 @@
         var nomeProdt = document.getElementById("nomeProduto").innerHTML 
         var preco  = document.getElementById("preco1").innerHTML
         var quantidade = document.getElementById("quant").value
-        var nomePessoa = document.getElementById("nomeC").value 
-        
+        var nomePessoa = document.getElementById("nomeC").value
         const produto = {
-            nome: nomeProdt,
-            preco: preco,
-            quantidade: quantidade,
-            linkImagem: linkImage
+            "nome": nomeProdt.toString(),
+            "preco": parseFloat(preco),
+            "quantidade": parseInt(quantidade),
+            "linkImagem": linkImage.toString(),
+            "nomePessoa": nomePessoa.toString()
         }
-        axios.put(`http://127.0.0.1:8000/carrinho`, {produto, nomePessoa})
+
+        axios.put("http://127.0.0.1:4000/carrinho", {produto})
         .then(response => response.data)
       .catch(error => {
         if (error.response) {
