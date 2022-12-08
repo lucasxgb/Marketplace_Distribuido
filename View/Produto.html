@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Style-Header.css">
+    <link rel="stylesheet" href="css/Style-header.css">
     <link rel="stylesheet" href="css/style-reset.css">
-    <link rel="stylesheet" href="css/Style-Produto.css">
-    <title> Produtos </title>
+    <link rel="stylesheet" href="css/Style-produto.css">
+    <title> Produto </title>
 </head>
 <body>
     <div class="cabecalho">
@@ -19,29 +19,85 @@
         </ul>
     </div>
     <div class="main">
-        <h1>Produto x</h1>
+        <h1 id="nomeProduto"></h1>
         <div class="produto">
             <div class="ladoEsquerdo">
                 <div class="imagem">
                     <!--Imagem aqui -->
-                    <img src="https://cdn.shopify.com/s/files/1/0577/1247/6321/products/Camisa-titular-da-Selecao-Brasileira-2022-Nike-Home-kit-1.jpg?v=1659979258" alt="">
+                    <img id="img1" src="" alt="">
                 </div>
             </div>
             <div class="ladoDireito">
+                <form id="formCarrinho" onsubmit="insereCarrinho()" method="PUT">
                 <div class="preco">
                     <h3>Por: </h3>
-                    <h1>R$ XX,xx</h1>
+                    <h1 id="preco1"></h1>
                 </div>
 
                 <div class="quantidade">
                     <h3>Quantidade</h3>
-                    <input value="1" max="6" min="1" type="number">
-                </div>  
+                    <input id="quant" value="1" max="6" min="1" type="number">
+                </div> 
 
-                <button>Adicionar ao Carrinho</button> 
+                <div class="nomeCliente">
+                    <h3>Nome cliente</h3>
+                    <input type="text" id="nomeC" placeholder="Seu nome ">
+                </div> 
 
+                <button type="submit">Adicionar ao Carrinho</button> 
+                </form>
+        
             </div>
         </div>
     </div>
 </body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    var carregou = localStorage.getItem('informações')
+    axios.get(`http://127.0.0.1:8000/produtos/${carregou}`)
+            .then(response => {
+                var data = response.data
+                var lista_dados = Object.entries(data)
+                var lista = Object.entries(lista_dados[0][1])
+                var nome = lista[0][0]
+                var link = lista [0][1].linkImagem
+                var preco = lista[0][1].preco
+                document.getElementById("nomeProduto").innerHTML = `${nome.toUpperCase()}`
+                document.getElementById("img1").src = link
+                document.getElementById("preco1").innerHTML = `R$ ${preco}`                    
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+
+    function insereCarrinho(){
+        event.preventDefault()
+        var linkImage = document.getElementById("img1").src 
+        var nomeProdt = document.getElementById("nomeProduto").innerHTML 
+        var preco  = document.getElementById("preco1").innerHTML
+        var quantidade = document.getElementById("quant").value
+        var nomePessoa = document.getElementById("nomeC").value 
+        
+        const produto = {
+            nome: nomeProdt,
+            preco: preco,
+            quantidade: quantidade,
+            linkImagem: linkImage
+        }
+        axios.put(`http://127.0.0.1:8000/carrinho`, {produto, nomePessoa})
+        .then(response => response.data)
+      .catch(error => {
+        if (error.response) {
+          console.log(error.response);
+        }
+      });
+        
+    }
+    
+</script>
+
+
 </html>

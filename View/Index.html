@@ -58,21 +58,25 @@
     function pesquisarBanco() {
         event.preventDefault()
         var nome = document.getElementById('bpesquisa').value;
-        
-        axios.get(`http://127.0.0.1:8000/produtos/${nome}`)
-                    .then(response => {
+        var requisicao
+        if (nome == ""){
+            requisicao = axios.get(`http://127.0.0.1:8000/produtos/`)
+        }else{
+            requisicao = axios.get(`http://127.0.0.1:8000/produtos/${nome}`)
+        }
+        requisicao.then(response => {
                         var data = response.data
                         var lista_dados = Object.entries(data)
                         var lista = Object.entries(lista_dados[0][1])
                         var tamanho = lista.length
                         for (var i=0; i<tamanho; i++){
                             var nome = lista[i][0]
-                            
                             var link = lista [i][1].linkImagem
                             var index = i+1
                             var preco = lista[i][1].preco
                             document.getElementById(`item-${index}`).src = `${link}`
                             document.getElementById(`item-${index}`).value = `${lista[i]}`
+                            document.getElementById(`div${index}`).value = `${nome}`
                             alteraNome(index, nome)
                             
                         }
@@ -92,7 +96,10 @@
 
     function enviaDados(id) {
         var info = document.getElementById(`${id}`).value
-        alert(id,info)
+        localStorage.setItem('informações', info)
+        if (info != null){
+            window.location.href = "./produto.html"
+        } 
     }
                         
 

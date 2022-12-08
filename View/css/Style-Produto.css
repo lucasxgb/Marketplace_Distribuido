@@ -54,7 +54,18 @@
     border: solid 2px #929191;
     box-shadow: 0px 0px 1px;
     border-radius: 5px;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.produto .nomeCliente input{
+    width: 100px;
+    height: 25px;
+    border: solid 2px #929191;
+    box-shadow: 0px 0px 1px;
+    border-radius: 5px;
+    margin-bottom: 80px;
     margin-top: 10px;
     padding: 5px;
 }
@@ -70,7 +81,13 @@
     border-radius: 10px;
 }
 
+#formCarrinho{
+    margin: 0;
+    padding: 0;
+}
+
 .produto button:hover{
     background-color: rgb(62, 60, 60);
 }
+
 
