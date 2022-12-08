@@ -2,11 +2,16 @@
     "cal\u00e7a flamengo": {
         "preco": 40.5,
         "quantidade": 7,
-        "linkImagem": ""
+        "linkImagem": "https://lojafastimports.com/wp-content/uploads/2020/02/JPG_0466-300x300.png"
     },
     "cal\u00e7a bahia": {
         "preco": 40.5,
         "quantidade": 10,
-        "linkImagem": ""
+        "linkImagem": "https://shoppingcart.wtennis.com.br/product_images/sgr_base_images_new/95/1012195/1012195_22566_3_4H140048_343_1.jpg"
+    },
+    "camisa brasil": {
+        "preco": 200,
+        "quantidade": 7,
+        "linkImagem": "https://cdn.shopify.com/s/files/1/0577/1247/6321/products/Brasil-Home-1.png?v=1625785690"
     }
 }

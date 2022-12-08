@@ -79,23 +79,21 @@
                     var lista_dados = Object.entries(responses[i])
                     var lista = Object.entries(lista_dados[0][1])
                     var lista_objetos = Object.entries(lista[0][1])
-                    console.log(lista_objetos)
                     var tamanhoReq = lista_objetos.length
                     for (var j=0; j<tamanhoReq; j++){
                         var nome = lista_objetos[j][0]
                         var link = lista_objetos [j][1].linkImagem
                         var index = j+1
                         var preco = lista_objetos[j][1].preco
-                        if (document.getElementById(`item-${index}`).value != null){
-
-                        } else{
-                            document.getElementById(`item-${index}`).src = `${link}`
-                            document.getElementById(`item-${index}`).value = `${lista_objetos[j].toString()}`
-                            document.getElementById(`div${index}`).value = `${nome}`
-                            alteraNome(index, nome)
+                        while (document.getElementById(`item-${index}`).value != null){
+                            index++
+                            
                         }
+                        document.getElementById(`item-${index}`).src = `${link}`
+                        document.getElementById(`item-${index}`).value = `${lista_objetos[j][0]}`
+                        document.getElementById(`div${index}`).value = `${nome}`
+                        alteraNome(index, nome)
                         
-                       
                         
                     }
                 }
