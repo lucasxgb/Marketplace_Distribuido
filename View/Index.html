@@ -59,117 +59,47 @@
         event.preventDefault()
         var nome = document.getElementById('bpesquisa').value;
         var requisicao
-        if (nome == ""){
-            requisicao = axios.get(`http://127.0.0.1:4000/produtos/`)
-            
-        }else{
-            requisicao = axios.get(`http://127.0.0.1:4000/produtos/${nome}`)
-        }
-        requisicao.then(response => {
-                        var data = response.data
-                        var lista_dados = Object.entries(data)
-                        var lista = Object.entries(lista_dados[0][1])
-                        var tamanho = lista.length
-                        for (var i=0; i<tamanho; i++){
-                            var nome = lista[i][0]
-                            var link = lista [i][1].linkImagem
-                            var index = i+1
-                            var preco = lista[i][1].preco
+        
+        
+        const requestUm = axios.get("http://127.0.0.1:4000/produtos/");
+        const requestDois = axios.get("http://127.0.0.1:5000/produtos/");
+        const requestTres = axios.get("http://127.0.0.1:8000/produtos/");
+        axios.all([requestUm, requestDois, requestTres]).then(axios.spread((...responses) => {
+                const responseOne = responses[0]
+                const responseTwo = responses[1]
+                const responesThree = responses[2]
+                console.log(responses)
+                    var lista_dados = Object.entries(data)
+                    var lista = Object.entries(lista_dados[0][1])
+                    var tamanho = lista.length
+                    for (var i=0; i<tamanho; i++){
+                        var nome = lista[i][0]
+                        var link = lista [i][1].linkImagem
+                        var index = i+1
+                        var preco = lista[i][1].preco
+                        if (document.getElementById(`item-${index}`).value != null){
+                            while (document.getElementById(`item-${index}`).value != null){
+                                index+=1
+                            }
+                        }else {
                             document.getElementById(`item-${index}`).src = `${link}`
                             document.getElementById(`item-${index}`).value = `${lista[i]}`
                             document.getElementById(`div${index}`).value = `${nome}`
                             alteraNome(index, nome)
-                            
                         }
-
                         
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                        aux = 0;
+                    }
 
-        if (nome == ""){
-            requisicao = axios.get(`http://127.0.0.1:5000/produtos/`)
+                    
+                
+            })).catch(errors => {
+                console.log(errors)
+    })
+}
+    
+    
             
-        }else{
-            requisicao = axios.get(`http://127.0.0.1:5000/produtos/${nome}`)
-        }
-        requisicao.then(response => {
-                        var data = response.data
-                        var lista_dados2= Object.entries(data)
-                        var lista2 = Object.entries(lista_dados2[0][1])
-                        var tamanho2 = lista2.length
-                        var aux2 = tamanho2
-                        for (var i=0; i<tamanho2; i++){
-                            var nome2 = lista2[i][0]
-                            var link2 = lista2[i][1].linkImagem
-                            var index2 = i+1
-                            var auxindex2 = index2
-                            var preco2 = lista2[i][1].preco
-                            if(document.getElementById(`item-${index2}`).src!= null){
-                                while (document.getElementById(`item-${auxindex2}`).src != null){
-                                    auxindex2 +=1
-                                }
-                            } else {
-                                document.getElementById(`item-${index2}`).src = `${link2}`
-                                document.getElementById(`item-${index2}`).value = `${lista2[i]}`
-                                document.getElementById(`div${index2}`).value = `${nome2}`
-                                alteraNome(index2, nome2)
-                            }auxindex2 = 0;
-                            
-                            
-                        } 
-
-                        
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-
-
-        if (nome == ""){
-            requisicao = axios.get(`http://127.0.0.1:5500/produtos/`)
-            
-        }else{
-            requisicao = axios.get(`http://127.0.0.1:5500/produtos/${nome}`)
-        }
-        requisicao.then(response => {
-                        var data3 = response.data
-                        var lista_dados3 = Object.entries(data3)
-                        var lista3 = Object.entries(lista_dados3[0][1])
-                        var tamanho3 = lista3.length
-                        var aux3 = tamanho3
-                        for (var i=0; i<tamanho3; i++){
-                            var nome3 = lista3[i][0]
-                            var link3 = lista3[i][1].linkImagem
-                            var index3 = i+1
-                            var auxindex3 = index3
-                            var preco3 = lista3[i][1].preco
-                            if(document.getElementById(`item-${index3}`).src!= null){
-                                while (document.getElementById(`item-${auxindex3}`).src != null){
-                                    auxindex3 +=1
-                                }
-                            } else {
-                                document.getElementById(`item-${index3}`).src = `${link3}`
-                                document.getElementById(`item-${index3}`).value = `${lista3[i]}`
-                                document.getElementById(`div${index3}`).value = `${nome3}`
-                                alteraNome(index3, nome3)
-                            }auxindex3 = 0;
-                            
-                            
-                        } 
-
-                        
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-        
-
-
-
-    }
-
         
     function alteraNome(index, nome){
         var texto = document.getElementById(`nome${index}`)
