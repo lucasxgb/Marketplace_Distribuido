@@ -71,9 +71,6 @@
             requisicao = axios.all([requestUm, requestDois, requestTres])
         }  
             requisicao.then(axios.spread((...responses) => {
-                const responseOne = responses[0]
-                const responseTwo = responses[1]
-                const responesThree = responses[2]
                 var tamanho = 3
                 for (var i=0; i<tamanho; i++){
                     var lista_dados = Object.entries(responses[i])

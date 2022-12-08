@@ -57,39 +57,34 @@
 
     var carregou = localStorage.getItem('informações')
     var requisicao
-    var requestUm = axios.get("http://127.0.0.1:4000/produtos/");
-    var requestDois = axios.get("http://127.0.0.1:5000/produtos/");
-    var requestTres = axios.get("http://127.0.0.1:8000/produtos/");
-    if (nome == ""){
-        requisicao = axios.all([requestUm, requestDois, requestTres])
-    }else{
-        requestUm = axios.get(`http://127.0.0.1:4000/produtos/${nome}`);
-        requestDois = axios.get(`http://127.0.0.1:5000/produtos/${nome}`);
-        requestTres = axios.get(`http://127.0.0.1:8000/produtos/${nome}`);
-        requisicao = axios.all([requestUm, requestDois, requestTres])
-    }  
-        requisicao.then(axios.spread((...responses) => {
-            const responseOne = responses[0]
-            const responseTwo = responses[1]
-            const responesThree = responses[2]
-            var tamanho = 3
-            for (var i=0; i<tamanho; i++){
-                var lista_dados = Object.entries(responses[i])
-                var lista = Object.entries(lista_dados[0][1])
-                var lista_objetos = Object.entries(lista[0][1])
-                var lista_dados = Object.entries(data)
-                var lista = Object.entries(lista_dados[0][1])
-                var nome = lista[0][0]
-                var link = lista [0][1].linkImagem
-                var preco = lista[0][1].preco
+    
+    requestUm = axios.get(`http://127.0.0.1:4000/produtos/${carregou}`);
+    requestDois = axios.get(`http://127.0.0.1:5000/produtos/${carregou}`);
+    requestTres = axios.get(`http://127.0.0.1:8000/produtos/${carregou}`);
+    localStorage.removeItem
+    requisicao = axios.all([requestUm, requestDois, requestTres])
+    requisicao.then(axios.spread((...responses) => {
+        var tamanho = 3
+        for (var i=0; i<tamanho; i++){
+            var lista_dados = Object.entries(responses[i])
+            var lista = Object.entries(lista_dados[0][1])
+            var lista_objetos = Object.entries(lista[0][1])
+            console.log(lista_objetos)
+            if(lista_objetos.length != 0){
+                
+                var nome = lista_objetos[0][0]
+                var link = lista_objetos[0][1].linkImagem
+                var preco = lista_objetos[0][1].preco
                 document.getElementById("nomeProduto").innerHTML = `${nome.toUpperCase()}`
                 document.getElementById("img1").src = link
-                document.getElementById("preco1").innerHTML = `${preco}`                    
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
+                document.getElementById("preco1").innerHTML = `${preco}` 
+            }
+        }              
+        })).catch(error => {
+            console.log(error)
+        })
+    
+        
 
     function insereCarrinho(){
         event.preventDefault()
@@ -106,7 +101,7 @@
             "nomePessoa": nomePessoa.toString()
         }
 
-        axios.put("http://127.0.0.1:4000/carrinho", {produto})
+        axios.put("http://127.0.0.1:4000/carrinho", {produto, nomePessoa})
         .then(response => response.data)
       .catch(error => {
         if (error.response) {
