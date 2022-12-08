@@ -125,7 +125,10 @@ def comprar(produtosComprar : dict):
         produtos = json.load(database)
     # Reduzir o produto comprado
     for nomeProduto in produtosComprar.keys():
-        produtos[nomeProduto.lower()]["quantidade"] -=  produtosComprar[nomeProduto]
+        if produtos[nomeProduto.lower()]["quantidade"] >= produtosComprar[nomeProduto]:
+            produtos[nomeProduto.lower()]["quantidade"] -=  produtosComprar[nomeProduto]
+        else:
+            return {"message" : "Compra negada"}
     # Escrever banco com os dados mudados
     with open("banco/produtos.json", 'w' , encoding='utf-8') as database:
         json.dump(produtos, database, indent=4) 
@@ -267,6 +270,6 @@ def online():
 
 
 # Thread para ficar pedindo pra ser o coordenador
-sleep(3)
+
 threading.Thread(target=pedir_para_ser_coordenador, args=[])
 threading.Thread(target=verificar_coordenador_online, args=[])
