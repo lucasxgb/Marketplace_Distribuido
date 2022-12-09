@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Style-header.css">
+    <link rel="stylesheet" href="css/style-header.css">
     <link rel="stylesheet" href="css/style-reset.css">
-    <link rel="stylesheet" href="css/Style-produto.css">
+    <link rel="stylesheet" href="css/style-produto.css">
     <title> Produto </title>
 </head>
 <body>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="ladoDireito">
-                <form id="formCarrinho" onsubmit="insereCarrinho()" method="PUT">
+                <form id="formCarrinho" onsubmit="insereCarrinho()" method="POST">
                 <div class="preco">
                     <h3>Por R$: </h3>
                     <h1 id="preco1"></h1>
@@ -97,22 +97,28 @@
         var nomePessoa = document.getElementById("nomeC").value
         
 
-        const data = JSON.stringify( {
+        const data = {
             "nome": nomeProdt.toString(),
             "preco": parseFloat(preco),
             "quantidade": parseInt(quantidade),
             "linkImagem": linkImage.toString(),
-            "nomePessoa": nomePessoa.toString()
-        });
+        }
         const options = {
             headers: {"content-type": "application/json"}
         }
         
         var marketenviar = localStorage.getItem('market')
         if (marketenviar == 1){
-            axios.put("http://127.0.0.1:4000/carrinho", data, options)
+            console.log(data)
+            axios.post("http://127.0.0.1:4000/carrinho/" + nomePessoa, data, options)
+                .then(response => response.data)
+                .catch(error => {
+            if (error.response) {
+            console.log(error.response);
+            }
+            });
         }else if (marketenviar == 2){
-            axios.put("http://127.0.0.1:5000/carrinho", {produto, nomePessoa})
+            axios.post("http://127.0.0.1:5000/carrinho/" + nomePessoa, data, options)
                 .then(response => response.data)
                 .catch(error => {
             if (error.response) {
@@ -120,7 +126,7 @@
             }
             });
         }else if (marketenviar == 3){
-            axios.put("http://127.0.0.1:8000/carrinho", {produto, nomePessoa})
+            axios.post("http://127.0.0.1:8000/carrinho/" + nomePessoa, data, options)
                 .then(response => response.data)
                 .catch(error => {
             if (error.response) {

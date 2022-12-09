@@ -1,9 +1,10 @@
 {
-    "silas" : {
-        "cal\u00e7a flamengo": {
-            "preco": 40.5,
-            "quantidade": 1,
-            "linkImagem": "https://img.elo7.com.br/product/original/3E38AB1/calca-masculina-moletom-vermelha-lisa-elastico-na-cintura-calca-com-elastico.jpg"
+    "silas": {
+        "camisa brasil": {
+            "preco": 200.0,
+            "quantidade": 3,
+            "linkImagem": "https://cdn.shopify.com/s/files/1/0577/1247/6321/products/brasil-home-1.png?v=1625785690"
         }
-    }
+    },
+    "lucas": {}
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Style-Header.css">
+    <link rel="stylesheet" href="css/style-header.css">
     <link rel="stylesheet" href="css/style-reset.css">
     <link rel="stylesheet" href="css/style-carrinho.css">
     <title> Carrinho </title>
@@ -94,7 +94,7 @@
                 //console.log(quantidade)
                 
                 valorTotal = valorTotal + (preco * quantidade)
-                caixaItens.innerHTML = `<div class="itemCarrinho">
+                caixaItens.innerHTML = caixaItens.innerHTML + ` <div class="itemCarrinho">
                         <img class="img1" src="${linkImagem}" alt="">
                         <h2 class="nomeProduto">${nomeItem}</h2>
                         <h3>R$${preco}</h3>
@@ -117,7 +117,7 @@
                 
                 valorTotal = valorTotal + (preco * quantidade)
                 
-                caixaItens.innerHTML = caixaItens.innerHTML + `<div class="itemCarrinho">
+                caixaItens.innerHTML = caixaItens.innerHTML + ` <div class="itemCarrinho">
                         <img class="img1" src="${linkImagem}" alt="">
                         <h2 class="nomeProduto">${nomeItem}</h2>
                         <h3>R$${preco}</h3>
@@ -165,18 +165,18 @@
         //console.log(qtds.length)
         //console.log(nomesProdutos.length)
     
-        for (var i = 0; i < qtds.length; i++) {
-            //console.log(nomesProdutos[i].outerText)
-            //console.log(qtds[i].outerText)
+        // for (var i = 0; i < qtds.length; i++) {
+        //     //console.log(nomesProdutos[i].outerText)
+        //     //console.log(qtds[i].outerText)
             
-            produtosComprar[nomesProdutos[i].outerText] = parseInt(qtds[i].outerText)
+        //     produtosComprar[nomesProdutos[i].outerText] = parseInt(qtds[i].outerText)
             
-        }
-        
-        //console.log(produtosComprar)
+        // }
+        console.log(produtosComprar)
+        // Mandar para o coordenador
+        var nome = document.getElementById('nomeC').value;
 
-        axios.post("", produtosComprar);
-        
+        axios.put("http://127.0.0.1:4000/comprar/" + nome)
     }
 
 </script>

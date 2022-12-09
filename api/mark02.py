@@ -15,7 +15,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost/",
-    "http://127.0.0.1/",
+    "http://127.0.0.1",
     "http://127.0.0.1:5500"
 ]
 
@@ -35,10 +35,45 @@ app.add_middleware(
 
 
 # Ligar o uvicorn
-# python -m uvicorn mark02:app --reload --port=5000
+# python3 -m uvicorn mark02:app --reload --port=5000
 
 coordenador = Coordenador
 coordenadorOnline = False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Passos individuais =======================================
 
 # Listar todos os produtos
 @app.get("/produtos")
@@ -49,9 +84,6 @@ def listagem():
     # Colocar nome da loja e retornar o Json
     return {"Marketplace02" : produtos}
     
-
-
-
 
 # Listar produtos por nome
 @app.get("/produtos/{nome}")
@@ -68,8 +100,6 @@ def listagem_especifica(nome: str):
     return {"Marketplace02" : filtroProdutos}
 
 
-
-
 # Listar todos os produtos do carrinho
 @app.get("/produtosCarrinho/{nome}")
 def listagem(nome : str):
@@ -82,8 +112,6 @@ def listagem(nome : str):
         return {"Marketplace02" : clientes[nome.lower()]}
     else:
         return{"Marketplace02" : {}}
-
-
 
 
 # Cadastrar produto
@@ -101,10 +129,8 @@ def cadastro(produto : ProdutoCadastrar):
     return {"message" : "Sucesso" }
 
 
-
-
 # Colocar carrinho
-@app.put("/carrinho")
+@app.post("/carrinho/{nome}")
 def carrinho(produto : ProdutoCadastrar, nome : str):
     prod = {}
     # Abrir banco
@@ -127,6 +153,39 @@ def carrinho(produto : ProdutoCadastrar, nome : str):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Parte de compra =====================================
+
+
+# Verificação de quantidade de produtos
 # Verificar se produto tem quantidade valida para pedido
 @app.get("/quantidade/validar/{nome}")
 def verificarQuantidade(nome : str):
@@ -137,7 +196,7 @@ def verificarQuantidade(nome : str):
     if nome.lower() in produtosCarrinho: #ver se a pessoa existe
         prodCarr = produtosCarrinho[nome.lower()]
     else:
-        return False
+        return {"cliente" : "não existe", "pedido" : "nenhum"}
     #Abrir banco dados
     with open("banco/produtosM2.json", 'r' , encoding='utf-8') as database:
         produtos = json.load(database)
@@ -145,26 +204,47 @@ def verificarQuantidade(nome : str):
     for item in prodCarr:
         # Se quantidade do carrinho for maior que o estoque, mandar um False
         if prodCarr[item]["quantidade"] > produtos[item]["quantidade"]: 
-            return False
-    return True
+            return {"cliente" : "existe", "pedido" : "negado"}
+    return {"cliente" : "existe", "pedido" : "aceito"}
        
 
-# Verificar
+# Verificar se os produtos estão disponiveis
 def verificarDisponibilidade(nome : str):
     link1 = f"http://localhost:4000/quantidade/validar/{nome}"
     link2 = f"http://localhost:5000/quantidade/validar/{nome}"
     link3 = f"http://localhost:8000/quantidade/validar/{nome}"
-    
     estoqueMark1 = requests.get(link1) 
     estoqueMark2 = requests.get(link2) 
     estoqueMark3 = requests.get(link3) 
     
-    if estoqueMark1 == True and estoqueMark2 == True and estoqueMark3 == True:
+    estoqueMark1 = json.loads(estoqueMark1.content)
+    estoqueMark2 = json.loads(estoqueMark2.content)
+    estoqueMark3 = json.loads(estoqueMark3.content)
+
+    v1 = False
+    v2 = False 
+    v3 = False
+    
+    #Verificar opções para saber se a compra pode ser efetuada em todos os marketplaces
+    if estoqueMark1["cliente"] == "existe" and estoqueMark1["pedido"] == "aceito":
+        v1 = True
+    elif estoqueMark1["cliente"] == "não existe" and estoqueMark1["pedido"] == "nenhum":
+        v1 = True
+    
+    if estoqueMark2["cliente"] == "existe" and estoqueMark2["pedido"] == "aceito":
+        v2 = True
+    elif estoqueMark2["cliente"] == "não existe" and estoqueMark2["pedido"] == "nenhum":
+        v2 = True
+    
+    if estoqueMark3["cliente"] == "existe" and estoqueMark3["pedido"] == "aceito":
+        v3 = True
+    elif estoqueMark3["cliente"] == "não existe" and estoqueMark3["pedido"] == "nenhum":
+        v3 = True
+    
+    if v1 == True and v2 == True and v3 == True:
         return True
     else:
         return False 
-
-
 
 
 # Comprar direto sem verificar novamente
@@ -183,7 +263,6 @@ def comprarDIreto(nome : str):
         produtos[item]["quantidade"] -= produtosCarrinho[nome.lower()][item]["quantidade"]
 
     # Apagar dados do carrinho do cliente
-    print(produtosCarrinho[nome.lower()])
     produtosCarrinho[nome.lower()] = {}
     
     # Salvar novo estoque
@@ -196,7 +275,7 @@ def comprarDIreto(nome : str):
 
 
 # Fazer compra
-@app.put("/comprar")
+@app.put("/comprar/{nome}")
 def comprar(nome : str):
     liberado_fazer_compra = verificarDisponibilidade(nome)
     if liberado_fazer_compra == True:
@@ -210,6 +289,37 @@ def comprar(nome : str):
         return {"message" : "Compra realizada com sucesso"}
     else:
          return {"message" : "Compra negada"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

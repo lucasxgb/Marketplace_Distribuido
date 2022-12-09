@@ -1,12 +1,17 @@
 {
     "camisa flamengo": {
         "preco": 40.5,
-        "quantidade": 9,
+        "quantidade": 3,
         "linkImagem": "https://flamengo.vteximg.com.br/arquivos/ids/164057-473-473/HA8342-1.png?v=637807273095830000"
     },
     "camisa bahia": {
         "preco": 40.5,
-        "quantidade": 8,
+        "quantidade": 5,
         "linkImagem": "https://www.casadotricolor.com.br/imagem/index/19128180/G/bahia_88.png"
+    },
+    "camisa gremio": {
+        "preco": 54.7,
+        "quantidade": 56,
+        "linkImagem": "https://umbro.vtexassets.com/arquivos/ids/433173/u31g022_312.jpg?v=637544318313600000"
     }
 }

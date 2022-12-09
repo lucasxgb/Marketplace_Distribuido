@@ -13,5 +13,10 @@
         "preco": 100.0,
         "quantidade": 20,
         "linkImagem": "https://tudosobreprodutos.com.br/img/bola-adidas-cafusa-glider-copa-das-confederacoes-tam-5.png"
+    },
+    "cal\u00e7a gremio": {
+        "preco": 100.0,
+        "quantidade": 10,
+        "linkImagem": "https://a-static.mlcdn.com.br/800x560/calca-gremio-moletom-masculino/sportretro/15897126238/67c51c8b49f7d1ec4c933da64b1bf1d8.jpeg"
     }
 }

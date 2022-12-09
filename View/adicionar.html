@@ -23,14 +23,15 @@
     <div class="main">
         <h1 id="nomeProduto">Cadastro item</h1>
         <div class="central">
-            <form id="formCadastro" action = "adicionar.html" onsubmit="cadastrar()" >
+            
+            <form id="formCadastro" action = "adicionar.html" method="POST">
                 <div class="Market">
                     <h3> Loja a adicionar </h3>
                     <input id="loja" value="1" max="3" min="1" type="number">
                 </div> 
                 <div class="nomeProduto">
                     <h3> Nome do produto </h3>
-                    <input type="text" id="nomeProduto" placeholder="Nome Produto">
+                    <input type="text" id="nomeProd" placeholder="Nome Produto">
                 </div> 
                 <div class="preco">
                     <h3> Preço do produto </h3>
@@ -45,7 +46,7 @@
                     <input type="text" id="linkimagem" placeholder="link com imagem">
                 </div> 
 
-                <button type="submit">cadastrar</button> 
+                <button type="submit" onclick="cadastrar()">cadastrar</button> 
             </form>
             
         </div>
@@ -55,9 +56,32 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     function cadastrar(){
-        var loja = document.getElementById('loja').value
+        var loja = parseInt(document.getElementById('loja').value)
+        var nomeProduto = document.getElementById('nomeProd').value
+        var quantidadeProduto = document.getElementById('quantidadeProduto').value
+        var precoProduto = document.getElementById('precoProduto').value
+        var linkimagem = document.getElementById('linkimagem').value
 
-        console.log(loja)
+        const produto = {
+            "nome" : nomeProduto,
+            "preco" : parseFloat(precoProduto),
+            "quantidade" : parseInt(quantidadeProduto),
+            "linkImagem" : linkimagem
+        }
+        
+        console.log(produto)
+
+        if (loja == 1){
+            axios.post("http://127.0.0.1:4000/produto" , produto)
+        }else if(loja == 2){
+            axios.post("http://127.0.0.1:5000/produto" , produto)
+        }
+        else if(loja == 3){
+            axios.post("http://127.0.0.1:8000/produto" , produto)
+        }
+
+        alert("Produto adicionado")
+        window.location.href = "./adicionar.html"
     }
 </script>
 
