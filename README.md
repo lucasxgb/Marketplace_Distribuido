@@ -40,12 +40,20 @@ tentativa de resolver o problema apresentado, essas informações serão apresen
 - O sistema é constituído pelas telas e funcionalidades:
 	![Listagem vazia](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/tela1vazia.png)
 	- `Listagem de informações na tela`: Todas os itens do marketplace são listados quando a tela está vazia e é clicado no botão de busca.
+
+
 	![Listagem de item específico](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/tela1.png)
 	- `Listagem de informações especifica`: Todas os itens do marketplace que tem nome semelhante ao pesquisado são exibidos na tela.
+
+
 	![Produto específico](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/tela2.png)
 	- `Ver produto`: Ao clicar em um produto você é redirecionado para tela do produto específico, onde pode inserir o mesmo no carrinho de compras passando seu nome e clicando no botão adicionar carrinho.
+
+
 	![Cadastro de itens](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/telaAdicionar.png)
 	- `Cadastro`: Ao clicar no sinal de + no menu você pode ir para tela de cadastro de itens no banco de dados em um determinado marketplace, passando suas informações.
+
+
 	![Carrinho](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/tela3.png)
 	- `Carrinho`: Carrinho de compras onde você passa o nome do usuário e pode finalizar a sua compra, onde é retirado os dados do seu carrinho no banco de dados, e reduzida a quantidade de itens no carrinho.
 
