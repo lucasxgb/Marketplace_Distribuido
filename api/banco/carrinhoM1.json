@@ -1,5 +1,11 @@
 {
     "silas": {},
-    "lucas": {},
+    "lucas": {
+        "camisa flamengo": {
+            "preco": 40.5,
+            "quantidade": 1,
+            "linkImagem": "https://flamengo.vteximg.com.br/arquivos/ids/164057-473-473/ha8342-1.png?v=637807273095830000"
+        }
+    },
     "teste": {}
 }
