@@ -50,7 +50,7 @@ tentativa de resolver o problema apresentado, essas informações serão apresen
 	- `Ver produto`: Ao clicar em um produto você é redirecionado para tela do produto específico, onde pode inserir o mesmo no carrinho de compras passando seu nome e clicando no botão adicionar carrinho.
 
 
-	![Cadastro de itens](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/telaAdicionar.png)
+	![Cadastro de itens](https://github.com/lucasxgb/Marketplace_Distribuido/blob/main/View/images/tela4.png)
 	- `Cadastro`: Ao clicar no sinal de + no menu você pode ir para tela de cadastro de itens no banco de dados em um determinado marketplace, passando suas informações.
 
 
